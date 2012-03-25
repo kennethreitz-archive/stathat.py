@@ -12,20 +12,14 @@ Usage::
     >>> stats = StatHat('me@kennethreitz.com')
     >>> stats.count('wtfs/minute', 10)
     True
-    >>> stats.count('connections.active', 85000)
+    >>> stats.count('connections.active', 85092)
     True
 
 Enjoy.
 
 """
 
-import sys
-
-try:
-    # Lazy setup.py __doc__ hack.
-    import requests
-except ImportError:
-    print >> sys.sterr, 'warning: requests module is required.'
+import requests
 
 DEFAULT_STATHAT_URL = 'http://api.stathat.com'
 
@@ -48,7 +42,7 @@ class StatHat(object):
 
     def value(self, key, value):
         r = self._http_post('/ez', {'email': self.email, 'stat': key, 'value': value})
-        return r.okay
+        return r.ok
 
     def count(self, key, count):
         r = self._http_post('/ez', {'email': self.email, 'stat': key, 'count': count})

@@ -3,7 +3,6 @@
 
 import os
 import sys
-import stathat
 
 try:
     from setuptools import setup
@@ -20,9 +19,9 @@ required = ['requests']
 
 setup(
     name='stathat',
-    version='0.0.1',
+    version='0.0.2',
     description='StatHat.com API Wrapper.',
-    long_description=stathat.__doc__,
+    long_description=open('README.rst').read(),
     author='Kenneth Reitz',
     author_email='me@kennethreitz.com',
     url='https://github.com/kennethreitz/stathat.py',
