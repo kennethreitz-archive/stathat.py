@@ -1,23 +1,48 @@
+# -*- coding: utf-8 -*-
+
+"""
+stathat.py
+~~~~~~~~~~
+
+A minimalistic API wrapper for StatHat.com, powered by Requests.
+
+Usage::
+
+    >>> from stathat import StatHat
+    >>> stats = StatHat('me@kennethreitz.com')
+    >>> stats.count('wtfs/minute', 10)
+    True
+    >>> stats.count('connections.active', 85000)
+    True
+
+Enjoy.
+
+"""
+
 import requests
 
-requests = requests.session()
+DEFAULT_STATHAT_URL = 'http://api.stathat.com'
 
 class StatHat(object):
+    """The StatHat API wrapper."""
 
-        def http_post(self, path, data):
-            url = 'http://api.stathat.com' + path
-            r = requests.post(url, data=data)
-            return r.content
+    STATHAT_URL = DEFAULT_STATHAT_URL
 
-        def post_value(self, user_key, stat_key, value):
-            return self.http_post('/v', {'key': stat_key, 'ukey': user_key, 'value': value})
+    def __init__(self, email=None):
+        self.email = email
 
-        def post_count(self, user_key, stat_key, count):
-            return self.http_post('/c', {'key': stat_key, 'ukey': user_key, 'count': count})
+        # Enable keep-alive and connection-pooling.
+        self.session = requests.session()
 
-        def ez_post_value(self, email, stat_name, value):
-            return self.http_post('/ez', {'email': email, 'stat': stat_name, 'value': value})
+    def _http_post(self, path, data):
+        url = self.STATHAT_URL + path
+        r = self.session.post(url, data=data, prefetch=True)
+        return r
 
-        def ez_post_count(self, email, stat_name, count):
-            return self.http_post('/ez', {'email': email, 'stat': stat_name, 'count': count})
+    def value(self, key, value):
+        r = self._http_post('/ez', {'email': self.email, 'stat': key, 'value': value})
+        return r.okay
 
+    def count(self, key, count):
+        r = self._http_post('/ez', {'email': self.email, 'stat': key, 'count': count})
+        return r.ok
