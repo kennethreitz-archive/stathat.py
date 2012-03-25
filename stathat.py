@@ -19,9 +19,16 @@ Enjoy.
 
 """
 
-import requests
+import sys
+
+try:
+    # Lazy setup.py __doc__ hack.
+    import requests
+except ImportError:
+    print >> sys.sterr, 'warning: requests module is required.'
 
 DEFAULT_STATHAT_URL = 'http://api.stathat.com'
+
 
 class StatHat(object):
     """The StatHat API wrapper."""
