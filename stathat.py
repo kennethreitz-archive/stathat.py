@@ -37,7 +37,7 @@ class StatHat(object):
 
     def _http_post(self, path, data):
         url = self.STATHAT_URL + path
-        r = self.session.post(url, data=data, prefetch=True)
+        r = self.session.post(url, data=data)
         return r
 
     def value(self, key, value):
