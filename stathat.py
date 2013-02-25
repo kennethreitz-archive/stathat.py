@@ -21,7 +21,7 @@ Enjoy.
 
 import requests
 
-DEFAULT_STATHAT_URL = 'http://api.stathat.com'
+DEFAULT_STATHAT_URL = 'https://api.stathat.com'
 
 
 class StatHat(object):
