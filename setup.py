@@ -10,7 +10,6 @@ except ImportError:
     from distutils.core import setup
 
 
-
 if sys.argv[-1] == "publish":
     os.system("python setup.py sdist upload")
     sys.exit()
@@ -19,7 +18,7 @@ required = ['requests']
 
 setup(
     name='stathat',
-    version='0.0.2',
+    version='0.3.0',
     description='StatHat.com API Wrapper.',
     long_description=open('README.rst').read(),
     author='Kenneth Reitz',
@@ -41,5 +40,8 @@ setup(
         'Programming Language :: Python :: 3.0',
         'Programming Language :: Python :: 3.1',
         'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
     ),
 )
